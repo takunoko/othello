@@ -7,7 +7,7 @@ double next_map(int my_col,int color,int map[][MAP_SIZE_Y]){
 	int d_map[MAP_SIZE_X][MAP_SIZE_Y];
 
 	map_case++;
-	printf("case_n = %d\n",map_case);
+	//printf("case_n = %d\n",map_case);
 
 	//自分の色から、相手の色を割り出す
 	int next_color=0;
@@ -33,8 +33,7 @@ double next_map(int my_col,int color,int map[][MAP_SIZE_Y]){
 			//おけるところがあったら、置く
 			if(change(j,i,color,d_map)!=0){
 				flg++;
-				printf("AI...(%d,%d)\n",j,i);
-				draw_map(d_map);
+				//printf("AI...(%d,%d)\n",j,i);
 				win_par += next_map(my_col,next_color,d_map);
 				cpy_map(d_map,map);
 			}
@@ -44,8 +43,8 @@ double next_map(int my_col,int color,int map[][MAP_SIZE_Y]){
 
 	//もし、すべてのますが埋まっていたら
 	if(space==0){
-		printf("End_game ");
-		printf("win : %d\n",winner(map));
+		//printf("End_game ");
+		//printf("win : %d\n",winner(map));
 		if(my_col == winner(map)){
 			return 1;
 		}else{
@@ -55,15 +54,14 @@ double next_map(int my_col,int color,int map[][MAP_SIZE_Y]){
 
 	//パスが発生した場合
 	if(flg==0){
-		puts("-----------pass--------------");
+		//puts("-----------pass--------------");
 		//左上から、おけるところを検索
 		for(i=0; i<MAP_SIZE_Y; i++){
 			for (j = 0; j < MAP_SIZE_X; j++) {
 				//おけるところがあったら、置く
 				if(change(j,i,next_color,d_map)!=0){
 					flg++;
-					printf("AI...(%d,%d)\n",j,i);
-					draw_map(d_map);
+					//printf("AI...(%d,%d)\n",j,i);
 					win_par += next_map(my_col,color,d_map);
 					cpy_map(d_map,map);
 				}
@@ -74,7 +72,6 @@ double next_map(int my_col,int color,int map[][MAP_SIZE_Y]){
 
 	//どちらの色もおける場所がない
 	if(flg==0){
-		printf("space_bat_no_putaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n");
 		if(my_col == winner(map)){
 			return 1;
 		}else{
@@ -126,7 +123,6 @@ void put_top(int color, int map[][MAP_SIZE_Y]){
 				top_p[n].x = j;
 				top_p[n].y = i;
 				top_p[n].par = next_map(color, color, d_map);
-				printf("win_par = %f",top_p[n].par);
 				cpy_map(d_map,map);
 				n++;
 			}

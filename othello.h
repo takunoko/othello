@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdlib.h>
 
 #define MAP_SIZE_X 8
 #define MAP_SIZE_Y 8

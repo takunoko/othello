@@ -10,30 +10,57 @@ int main(void){
 	//init_map(map);
 	
 	int map[8][8]={
-		{1,0,1,2,1,2,2,2},
-		{2,1,1,1,2,0,1,2},
-		{2,1,0,2,1,2,2,1},
-		{2,2,1,1,2,1,2,2},
-		{0,2,2,0,1,2,2,2},
+		{1,0,1,2,1,2,0,2},
+		{2,1,1,2,2,0,1,2},
+		{0,1,0,2,0,2,2,1},
+		{2,2,0,1,2,1,0,2},
+		{0,2,2,2,1,0,2,2},
 		{1,1,0,2,1,2,0,1},
-		{2,2,1,1,0,2,1,2},
-		{2,2,1,1,1,2,2,1}};
-	
+		{2,2,1,1,1,2,1,2},
+		{2,0,1,2,1,2,0,1}};
+		
 	int color=0;
 	int turn=0;
-	for(turn=0; turn<60;turn++){
+
+	int i,j;
+	int space;
+
+	for(turn=0 ; turn<60;turn++,space=0){
 		color=turn%2+1;
-		printf("----your turn(%d)-----\n",color);
+		printf("----your turn(");
+		if(color==1){
+			printf("○ ");
+		}else{
+			printf("●");
+		}
+		printf(")\n");
 		draw_map(map);
 		put(color,map);
 		//aiの思考
 		if(color==1){
-			//next_map(turn,2,map);
 			put_top(2,map);
 		}else{
-			//next_map(turn,1,map);
 			put_top(1,map);
 		}	
+
+		for(i=0; i<MAP_SIZE_Y; i++){
+			for (j = 0; j < MAP_SIZE_X; j++) {
+				if(map[j][i] == 0)	space++;
+			}
+		}
+		if(space==0){
+			printf("win:");
+			if(winner(map)==2){
+				printf("○ ");
+			}else if(winner(map)==1){
+				printf("● ");
+			}else{
+				printf("drow");
+			}
+			putchar('\n');
+
+			exit(EXIT_SUCCESS);
+		}
 	}
 
 	return 0;
@@ -65,7 +92,6 @@ void draw_map(int map[][MAP_SIZE_Y]){
 			}else{
 				printf("　");
 			}
-			//printf("%2d",map[j][i]);
 		}
 		putchar('\n');
 	}
